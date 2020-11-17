@@ -33,11 +33,7 @@ main()
   dark_gray='#323232'
   #light_purple='#bd93f9'
   #dark_purple='#6272a4'
-  #cyan='#8be9fd'
   green='#4bc98a'
-  #orange='#ffb86c'
-  #red='#ff5555'
-  #pink='#ff79c6'
   #yellow='#f1fa8c'
 
 
@@ -58,28 +54,6 @@ main()
       right_sep="$show_right_sep"
       left_sep="$show_left_sep"
   fi
-
-  # start weather script in background
-  if $show_weather; then
-    $current_dir/sleep_weather.sh $show_fahrenheit $show_location &
-  fi
-
-  # Set timezone unless hidden by configuration
-  case $show_timezone in
-      false)
-          timezone="";;
-      true)
-          timezone="#(date +%Z)";;
-  esac
-
-  case $show_flags in
-    false)
-      flags=""
-      current_flags="";;
-    true)
-      flags="#{?window_flags,#[fg=${dark_purple}]#{window_flags},}"
-      current_flags="#{?window_flags,#[fg=${light_purple}]#{window_flags},}"
-  esac
 
   # sets refresh interval to every 5 seconds
   tmux set-option -g status-interval $show_refresh
@@ -102,19 +76,13 @@ main()
   # status bar
   tmux set-option -g status-style "bg=${gray},fg=${white}"
 
-  # wait unit data/weather.txt exists just to avoid errors
-  # this should almost never need to wait unless something unexpected occurs
-  while $show_weather && [ ! -f $current_dir/../data/weather.txt ]; do
-      sleep 0.01
-  done
-
   # Powerline Configuration
   if $show_powerline; then
 
-      tmux set-option -g status-left "#[bg=${green},fg=${dark_gray}]#{?client_prefix,#[bg=${yellow}],} ${left_icon} #[fg=${green},bg=${gray}]#{?client_prefix,#[fg=${yellow}],}${left_sep}"
-      tmux set-option -g  status-right ""
-      powerbg=${gray}
-      tmux set-window-option -g window-status-current-format "#[fg=${gray},bg=${dark_purple}]${left_sep}#[fg=${white},bg=${dark_purple}] #I #W${current_flags} #[fg=${dark_purple},bg=${gray}]${left_sep}"
+    tmux set-option -g status-left "#[bg=${green},fg=${dark_gray}]#{?client_prefix,#[bg=${yellow}],} ${left_icon} #[fg=${green},bg=${gray}]#{?client_prefix,#[fg=${yellow}],}${left_sep}"
+    tmux set-option -g  status-right ""
+    powerbg=${gray}
+    tmux set-window-option -g window-status-current-format "#[fg=${gray},bg=${dark_purple}]${left_sep}#[fg=${white},bg=${dark_purple}] #I #W${current_flags} #[fg=${dark_purple},bg=${gray}]${left_sep}"
 
   # Non Powerline Configuration
   else
