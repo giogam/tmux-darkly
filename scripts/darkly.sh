@@ -20,21 +20,16 @@ main()
 
   # set configuration option variables
   show_powerline=$(get_tmux_option "@darkly-show-powerline" true)
-  show_flags=$(get_tmux_option "@darkly-show-flags" false)
   show_left_icon=$(get_tmux_option "@darkly-show-left-icon" lambda)
   show_left_sep=$(get_tmux_option "@darkly-show-left-sep" )
   show_right_sep=$(get_tmux_option "@darkly-show-right-sep" )
-  show_border_contrast=$(get_tmux_option "@darkly-border-contrast" false)
-  show_refresh=$(get_tmux_option "@darkly-refresh-rate" 5)
 
   # darkly Color Pallette
   white='#f8f8f2'
   gray='#444444'
   dark_gray='#323232'
-  #light_purple='#bd93f9'
-  #dark_purple='#6272a4'
   green='#4bc98a'
-  #yellow='#f1fa8c'
+  yellow='#f1fa8c'
 
 
   # Handle left icon configuration
@@ -55,44 +50,36 @@ main()
       left_sep="$show_left_sep"
   fi
 
-  # sets refresh interval to every 5 seconds
-  tmux set-option -g status-interval $show_refresh
-
   # set length
   tmux set-option -g status-left-length 100
   tmux set-option -g status-right-length 100
 
-  # pane border styling
-  if $show_border_contrast; then
-    tmux set-option -g pane-active-border-style "fg=${light_purple}"
-  else
-    tmux set-option -g pane-active-border-style "fg=${dark_purple}"
-  fi
+  tmux set-option -g pane-active-border-style "fg=${green}"
   tmux set-option -g pane-border-style "fg=${gray}"
 
   # message styling
   tmux set-option -g message-style "bg=${gray},fg=${white}"
 
   # status bar
-  tmux set-option -g status-style "bg=${gray},fg=${white}"
+  tmux set-option -g status-style "bg=${dark_gray},fg=${white}"
 
   # Powerline Configuration
   if $show_powerline; then
 
-    tmux set-option -g status-left "#[bg=${green},fg=${dark_gray}]#{?client_prefix,#[bg=${yellow}],} ${left_icon} #[fg=${green},bg=${gray}]#{?client_prefix,#[fg=${yellow}],}${left_sep}"
+    tmux set-option -g status-left "#[bg=${green},fg=${dark_gray}]#{?client_prefix,#[bg=${yellow}],} ${left_icon} #[fg=${green},bg=${dark_gray}]#{?client_prefix,#[fg=${yellow}],}${left_sep}"
     tmux set-option -g  status-right ""
-    powerbg=${gray}
-    tmux set-window-option -g window-status-current-format "#[fg=${gray},bg=${dark_purple}]${left_sep}#[fg=${white},bg=${dark_purple}] #I #W${current_flags} #[fg=${dark_purple},bg=${gray}]${left_sep}"
+    powerbg=${dark_gray}
+    tmux set-window-option -g window-status-current-format "#[fg=${dark_gray},bg=${green}]${left_sep}#[fg=${white},bg=${green}] #I #W${current_flags} #[fg=${green},bg=${dark_gray}]${left_sep}"
 
   # Non Powerline Configuration
   else
     tmux set-option -g status-left "#[bg=${green},fg=${dark_gray}]#{?client_prefix,#[bg=${yellow}],} ${left_icon}"
     tmux set-option -g  status-right ""
-    tmux set-window-option -g window-status-current-format "#[fg=${white},bg=${dark_purple}] #I #W${current_flags} "
+    tmux set-window-option -g window-status-current-format "#[fg=${white},bg=${green}] #I #W${current_flags} "
 
   fi
 
-  tmux set-window-option -g window-status-format "#[fg=${white}]#[bg=${gray}] #I #W${flags}"
+  tmux set-window-option -g window-status-format "#[fg=${white}]#[bg=${dark_gray}] #I #W${flags}"
   tmux set-window-option -g window-status-activity-style "bold"
   tmux set-window-option -g window-status-bell-style "bold"
 }
