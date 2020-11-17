@@ -24,9 +24,9 @@ main()
   show_weather=$(get_tmux_option "@darkly-show-weather" false)
   show_fahrenheit=$(get_tmux_option "@darkly-show-fahrenheit" false)
   show_location=$(get_tmux_option "@darkly-show-location" false)
-  show_powerline=$(get_tmux_option "@darkly-show-powerline" false)
+  show_powerline=$(get_tmux_option "@darkly-show-powerline" true)
   show_flags=$(get_tmux_option "@darkly-show-flags" false)
-  show_left_icon=$(get_tmux_option "@darkly-show-left-icon" smiley)
+  show_left_icon=$(get_tmux_option "@darkly-show-left-icon" lambda)
   show_military=$(get_tmux_option "@darkly-military-time" false)
   show_timezone=$(get_tmux_option "@darkly-show-timezone" false)
   show_left_sep=$(get_tmux_option "@darkly-show-left-sep" )
@@ -36,7 +36,7 @@ main()
   show_ram_usage=$(get_tmux_option "@darkly-ram-usage" false)
   show_gpu_usage=$(get_tmux_option "@darkly-gpu-usage" false)
   show_day_month=$(get_tmux_option "@darkly-day-month" false)
-  show_time=$(get_tmux_option "@darkly-show-time" true)
+  show_time=$(get_tmux_option "@darkly-show-time" false)
   show_refresh=$(get_tmux_option "@darkly-refresh-rate" 5)
 
   # darkly Color Pallette
@@ -55,8 +55,8 @@ main()
 
   # Handle left icon configuration
   case $show_left_icon in
-      smiley)
-          left_icon="☺ ";;
+      lambda)
+          left_icon="Ⲗ ";;
       session)
           left_icon="#S ";;
       window)
