@@ -42,7 +42,7 @@ main()
   # darkly Color Pallette
   white='#f8f8f2'
   gray='#444'
-  dark_gray='323232'
+  dark_gray='#323232'
   light_purple='#bd93f9'
   dark_purple='#6272a4'
   cyan='#8be9fd'
